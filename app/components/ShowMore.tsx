@@ -1,0 +1,38 @@
+"use client"
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import CustomButton from './CustomButton';
+import { updateSearchParams } from '@/utils';
+
+
+interface ShowMoreProps{
+    pageNumber: number;
+    isNext: boolean;
+}
+
+const ShowMore = ({pageNumber, isNext}: ShowMoreProps) => {
+    const router = useRouter();
+
+    const handleNavigation =()=>{
+
+        const newlimit = (pageNumber + 1) * 10 ;
+        const newPathName = updateSearchParams("limit", `${newlimit}`)
+        router.push(newPathName)
+    }
+ 
+    return (
+    <div className='w-full flex-center gap-5 mt-10'>
+        {
+            !isNext && (
+                <CustomButton 
+                title='Show More'
+                containerStyles='bg-primary-blue rounded-full text-white'
+                handleClick={handleNavigation}
+                />
+            )
+        }
+    </div>
+  )
+}
+
+export default ShowMore
